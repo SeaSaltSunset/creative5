@@ -4,19 +4,43 @@
     <div class="modal-wrapper">
       <div class="modal-container">
         <div class="modal-header">
-          <h1 class="modal-title">Upload</h1>
+          <h1 class="modal-title">Create a Character</h1>
         </div>
         <div class="modal-body">
           <p v-if="error" class="error">{{error}}</p>
           <form @submit.prevent="upload">
-            <input v-model="title" placeholder="playerName">
-            <p></p>
-            <textarea v-model="charName" placeholder="Description"></textarea>
-            <p></p>
-            <!--  <input type="file" name="profile" @change="fileChanged"> -->
-            <p></p>
-            <button type="button" @click="close" class="pure-button">Close</button>
-            <button type="submit" class="pure-button pure-button-secondary">Upload</button>
+            <div class>
+              <p> Player Name: </p> <input v-model="playerName" placeholder="Your Name">
+            </div>
+            <p></p> <br>
+            <div class="headBox">
+              <h3><u>Character Info:</u> </h3>
+              <p> Character Name:</p> <input v-model="charName" placeholder="Their Name">
+
+              <p></p>
+              <p> Age:</p> <input v-model="age" size="5" type="number" placeholder="Age">
+              <p></p>
+              <p> Class:</p> <input v-model="charClass" placeholder="Character Class">
+            </div>
+            <p></p> <br>
+            <div class>
+              <h3><u>Core Attributes:</u></h3>
+              <p> Heart:</p>
+              <input size="5" v-model="heart" type="number" placeholder="Heart Score">
+              <p></p>
+              <p> Might:</p>
+              <input size="5" v-model="might" type="number" placeholder="Might Score">
+              <p></p>
+              <p> Mind:</p>
+              <input size="5" v-model="mind" type="number" placeholder="Mind Score">
+              <p></p>
+              <p> Strength:</p>
+
+              <input class="intInput" v-model="strength" type="number" placeholder="Strength Score">
+              <p>Faith Score: {{faith}}</p>
+              <button type="button" @click="close" class="pure-button">Close</button>
+              <button type="submit" class="pure-button pure-button-secondary">Upload</button>
+            </div>
           </form>
         </div>
       </div>
@@ -35,23 +59,29 @@ export default {
   },
   data() {
     return {
-  //  addItem: null,
-   //items: [],
-  //       findName: "",
-//   findItem: null,
-   playerName: "Leon",
-   charName: "Chris",
-   charClass: "hero",
-   age: 2,
-   male: true,
-   gender: "male",
+      //  addItem: null,
+      //items: [],
+      //       findName: "",
+      //   findItem: null,
+      playerName: "Leon",
+      charName: "Chris",
+      charClass: "hero",
+      age: 2,
+      male: true,
+      gender: "male",
 
-   heart: 0,
-   might: 0,
-   mind: 0,
-   strength: 0,
-   faith: 0,
+      heart: 0,
+      might: 0,
+      mind: 0,
+      strength: 0,
+      //  faith: 0,
+      error: '',
     }
+  },
+  computed: {
+    faith() {
+      return (parseInt(this.heart) + parseInt(this.might));
+    },
   },
   methods: {
     //        fileChanged(event) {
@@ -78,6 +108,7 @@ export default {
 
         });
         console.log("UPLOADED");
+        this.$emit('uploadFinished');
         //this.addItem = r2.data;
       } catch (error) {
         console.log(error);
@@ -87,6 +118,7 @@ export default {
 
 
     close() {
+      console.log("closing time");
       this.$emit('escape');
     },
   },
@@ -103,7 +135,6 @@ input {
 
 textarea {
   width: 100%;
-  height: 100px
 }
 
 .pure-button-secondary {

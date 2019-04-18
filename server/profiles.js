@@ -42,6 +42,7 @@ const Profile = mongoose.model('Profile', profileSchema);
 router.post("/", auth.verifyToken, User.verify, async (req, res) => {   //will not accept photos
   const profile = new Profile({
     //  title: req.body.title,
+    user: req.user,
     playerName: req.body.playerName,
     charName: req.body.charName,
     charClass: req.body.charClass,
@@ -64,7 +65,7 @@ router.post("/", auth.verifyToken, User.verify, async (req, res) => {   //will n
   }
 });
 
-// get all Profiles
+// get all Profiles for one user
 router.get("/", auth.verifyToken, User.verify, async (req, res) => {
   // return profiles
   try {
@@ -73,11 +74,24 @@ router.get("/", auth.verifyToken, User.verify, async (req, res) => {
     let profiles = await Profile.find({
 
       user: req.user
-    })//.sort({
-      //created: -1
-    //});
+    }).sort({
+      created: -1
+    });
     console.log("# of profiles: ", profiles);
     return res.send(profiles);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
+
+// get all profiles for all users
+router.get("/all", async (req, res) => {
+  try {
+    let photos = await Profile.find().sort({
+      created: -1
+    }).populate('user');
+    return res.send(photos);
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);

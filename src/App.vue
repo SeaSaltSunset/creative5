@@ -1,8 +1,10 @@
 <template>
 <div id="app">
-  <div id="nav">
+
+  <div id="nav" class="content">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#"><i class="fas fa-dice-d20"></i></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -11,27 +13,17 @@
 
 
           <li class="nav-item active">
-            <b-nav-item class="nav-link">
-              <router-link to="/" class="pure-menu-link">Home</router-link>
-            </b-nav-item> <!-- HOME PAGE LINK -->
+
+            <router-link to="/" class="pure-menu-link nav-link">Home</router-link>
+            <!-- HOME PAGE LINK -->
             <!--  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
           </li>
 
 
           <li class="nav-item">
-            <b-nav-item class="nav-link">
-              <router-link to="/yourpage" class="pure-menu-link">Your Page</router-link>
-            </b-nav-item> <!-- OUR PAGE LINK -->
-          </li>
 
-
-          <li class="nav-item">
-            <!--      <a class="nav-link" href="#">Pricing</a>  -->
-          </li>
-
-
-          <li class="nav-item">
-            <!--     <a class="nav-link disabled" href="#">Disabled</a> -->
+            <router-link to="/yourpage" class="pure-menu-link nav-link">Your Page</router-link>
+            <!-- OUR PAGE LINK -->
           </li>
         </ul>
       </div>
@@ -39,6 +31,11 @@
     <hr>
   </div>
   <router-view />
+
+
+  <div class="footer">
+    <a href="https://github.com/SeaSaltSunset/creative5">Link to Github Repository</a>
+  </div>
 </div>
 </template>
 
@@ -51,18 +48,59 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-}
+
 
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+
+}
+
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem;
+  /* Footer height */
+}
+
+#fa {
+
+  width: 20px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  height: 50px;
+  padding: 10px 100px 10px 100px;
+  background: #f8f9fa;
+  border-top: 2px groove #4c2000;
+  border-color: #42b98d;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+
+.footer a {
+  color: #000;
+}
+
+.content {
+  padding: 20px 100px 0px 100px;
 }
 
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
 
 /* Modals */
 .modal-mask {
@@ -91,6 +129,8 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
+  max-height: calc(100vh - 50px);
+  overflow-y: auto;
 }
 
 .modal-header h1 {
@@ -115,6 +155,10 @@
 
 .modal-default-button {
   float: right;
+}
+
+.modal-title {
+  text-align: center;
 }
 
 /*

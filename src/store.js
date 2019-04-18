@@ -19,6 +19,16 @@ export default new Vuex.Store({
   },
   actions: {
 
+    async getAllProfiles(context) {
+      try {
+        let response = await axios.get("/api/profiles/all");
+        context.commit('setProfiles', response.data);
+        return "";
+      } catch (error) {
+        return "";
+      }
+    },
+
     async upload(context, data) { //UPLOAD NEW PROFILES
       try {
         await axios.post('/api/profiles', data);

@@ -1,18 +1,25 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<div class="home content">
+  <profile-gallery :profiles="profiles" />
+</div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import ProfileGallery from '@/components/ProfileGallery.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
-  }
+    ProfileGallery
+  },
+  computed: {
+    profiles() {
+      return this.$store.state.profiles;
+    }
+  },
+  async created() {
+    await this.$store.dispatch("getAllProfiles");
+  },
 }
 </script>

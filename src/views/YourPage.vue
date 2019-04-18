@@ -1,15 +1,15 @@
 <template>
-<div>
-  <div v-if="user">
+<div class= "content">
+  <div v-if="user" class="normal">
     <div class="header">
       <div>
-        <h1>{{user.name}}</h1>
+
       </div>
       <div>
-        <p>
-          <a @click="toggleUpload"><i class="far fa-image"></i></a>
-          <a href="#" @click="logout"><i class="fas fa-sign-out-alt"></i></a>
-        </p>
+        <h1>Hey, {{user.name}} push the address icon to build a character!<a @click="toggleUpload">
+        <i class=" resize fas fa-address-card"></i></a>
+        <a href="#" @click="logout"><i class=" resize fas fa-sign-out-alt"></i></a></h1>
+
       </div>
     </div>
     <escape-event @escape="escape"></escape-event>
@@ -52,6 +52,7 @@ export default {
     },
     profiles() {
       return this.$store.state.profiles;
+      console.log("computed profiles: ", this.$store.state.profiles);
     },
   },
 
@@ -66,6 +67,7 @@ export default {
       this.show = false;
       try {
         this.error = await this.$store.dispatch("getMyProfiles");
+        console.log("computed profiles: ", this.$store.state.profiles);
       } catch (error) {
         console.log(error);
       }
@@ -92,16 +94,29 @@ export default {
 }
 </script>
 
-
+.normal {
+padding: 0px;
+margin-left: 0px;
+}
 <style scoped>
 .header {
   display: flex;
+}
+
+.resize {
+font-size: .6em;
+
 }
 
 .header a {
   padding-left: 50px;
   color: #222;
   font-size: 2em;
+}
+
+.fas {
+
+align: left;
 }
 
 .header svg {
